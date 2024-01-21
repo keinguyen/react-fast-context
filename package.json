@@ -4,13 +4,14 @@
   "description": "React Context without much rerendering",
   "main": "index.js",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
     "prebuild": "node scripts/prebuild.js",
     "build": "tsc --project tsconfig.json",
     "postbuild": "node scripts/postbuild.js",
-    "publish:npm": "npm publish ./dist --registry=https://registry.npmjs.org"
+    "publish:npm": "npm publish ./dist"
   },
   "repository": {
     "type": "git",
