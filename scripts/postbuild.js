@@ -1,6 +1,23 @@
 const fs = require("fs");
 const packagejson = require("../package.json");
 
+function copyREADME() {
+	return new Promise((resolve, reject) => {
+		console.info('[COPYING] README');
+		console.time('[COPIED] README in:');
+
+		fs.copyFile('README.md', 'dist/README.md', (err) => {
+		  if (err) {
+				reject(err);
+				return;
+			}
+
+		  console.timeEnd('[COPIED] README in:');
+			resolve(true);
+		});
+	});
+}
+
 function copyPackageJSON() {
 	return new Promise((resolve, reject) => {
 		console.info('[COPYING & MODIFYING] Package JSON');
@@ -26,6 +43,7 @@ async function main() {
 
 	await Promise.all([
 		copyPackageJSON(),
+		copyREADME(),
 	]);
 
 	console.timeEnd('Postbuild function end in');

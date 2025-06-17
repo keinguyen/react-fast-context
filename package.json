@@ -1,6 +1,6 @@
 {
   "name": "@keinguyen/react-fast-context",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Context without much rerendering",
   "main": "index.js",
   "publishConfig": {
