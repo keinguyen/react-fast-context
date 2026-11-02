@@ -97,13 +97,16 @@ export function createFastContext<Store extends Record<string, any>>(
 
 		const [state, setState] = useState(() => selector(store.get()));
 
-		useEffect(
-			() =>
-				store.subscribe(() =>
-					setState(() => selectorRef.current!(store.get())),
-				),
-			[selectorRef, store],
-		);
+		useEffect(() => {
+			const sync = () => setState(() => selectorRef.current!(store.get()));
+			const unsubscribe = store.subscribe(sync);
+
+			// A commit between the first render and this effect (for example from a
+			// sibling's effect) was missed, so catch up once now.
+			sync();
+
+			return unsubscribe;
+		}, [selectorRef, store]);
 
 		return state;
 	}
